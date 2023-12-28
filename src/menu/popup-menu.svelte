@@ -1,18 +1,19 @@
-<script>
+<script lang="ts">
   // export let activeEntry;
   // export let prev, next;
   import MenuEntry from "./menu-entry.svelte";
-  import { fly, fade } from "svelte/transition";
+  import { fade } from "svelte/transition";
   import { createEventDispatcher } from "svelte";
-  export let teacher;
-  export let page;
-  export let menu;
-  export let loaded; // [true, false, 'READING', 'SENTENCE']
-  export let searchState;
+  import type { Writable } from "svelte/store";
+  import type { MenuModel, PageName } from "../menu-type";
+  export let teacher:Writable<boolean>;
+  export let menu:MenuModel;
+  export let loaded: boolean | 'READING' | 'SENTENCE'; // [true, false, 'READING', 'SENTENCE']
+  export let searchState: Writable<string>;
 
-  let activeEntry = null;
-  let activeMenu = null;
-  let entries = [];
+  let activeEntry:MenuModel = null;
+  let activeMenu:MenuModel = null;
+  let entries:MenuModel[] = [];
   const filterMenuEntries = () => {
     if (activeMenu.id === "menu-sentence-study" && loaded === "READING") {
       return menu.children.filter((entry) => {
@@ -29,13 +30,14 @@
     entries = filterMenuEntries();
     activeEntry = null;
   }
-  let isTeacher;
+  let isTeacher:boolean;
   teacher.subscribe((state) => {
     isTeacher = state;
   });
   const dispatch = createEventDispatcher();
-  const closeMenu = (event) => {
-    const { target, currentTarget } = event;
+  const closeMenu = (event:Event) => {
+    const { target } = event;
+    const currentTarget = event.currentTarget as HTMLElement
     if (
       target === currentTarget ||
       currentTarget.classList.contains("btn-close")
@@ -44,11 +46,13 @@
     }
   };
 
-  const showDesc = (menu) => {
+  const showDesc = (menu:MenuModel) => {
     activeEntry = menu;
   };
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   class="popup-bg menu-theme-default"
   in:fade={{ duration: 150 }}
@@ -71,7 +75,6 @@
         {:else}
           <MenuEntry
             {teacher}
-            {page}
             menu={child}
             {closeMenu}
             {loaded}

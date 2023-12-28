@@ -3,7 +3,7 @@
 <script lang="ts">
   import type { Writable } from "svelte/store";
   import PopupMenu from "./menu/popup-menu.svelte";
-  import type { MenuList, PageName } from "./menu-type";
+  import type { MenuList, MenuModel, PageName } from "./menu-type";
   import { word } from "./menu/word-menu";
   import { sentence } from "./menu/sentence-menu";
   import { reading } from "./menu/reading-menu";
@@ -20,7 +20,7 @@
 
   let loaded: boolean | 'READING' | 'SENTENCE' = false; // [false, true, 'READING', 'SENTENCE']
 
-  let activeMenu = null;
+  let activeMenu: MenuModel = null;
   loadState.subscribe((state) => {
     loaded = state;
   });
@@ -48,7 +48,7 @@
 
   let prevMenu, nextMenu;
 
-  const openMenuPopup = (menu) => {
+  const openMenuPopup = (menu: MenuModel) => {
     if (menu.visible !== "always" && !loaded) {
       return;
     }
@@ -60,14 +60,14 @@
 
     document.body.classList.add("fill-h");
   };
-  const clearMenu = (e) => {
-    activeMenu = false;
+  const clearMenu = () => {
+    activeMenu = undefined;
     document.body.classList.remove("fill-h");
   };
-  const filterMenu = (fn) => menus.filter(fn);
+  const filterMenu = (fn: (menu:MenuModel) =>boolean) => menus.filter(fn);
 
   const filterMenuWhenPub = () => {
-    const filtered = filterMenu((m) => m.cmd);
+    const filtered = filterMenu((m) => !!m.cmd);
     if ((page === "pub" || page === "reading") && loaded !== "SENTENCE") {
       const idx = filtered.findIndex((m) => m.id === "menu-print-sentence");
       filtered.splice(idx, 1);
@@ -132,7 +132,6 @@
     on:active-menu={(e) => openMenuPopup(e.detail.menu)}
     teacher={teacherState}
     {loaded}
-    {page}
     {searchState}
     menu={activeMenu}
   />

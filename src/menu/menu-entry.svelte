@@ -1,14 +1,16 @@
-<script>
-  export let teacher = true;
-  export let page;
-  export let loaded;
-  export let menu;
-  export let closeMenu;
+<script lang="ts">
+  import type { Writable } from "svelte/store";
+  import type { MenuModel, PageName } from "../menu-type";
+
+  export let teacher:Writable<Boolean>;
+  export let loaded:boolean | 'READING' | 'SENTENCE';
+  export let menu: MenuModel;
+  export let closeMenu: (e:Event) => void;
   // on:click={closeMenu}
   export let searchState;
 
-  let activeMenu = null;
-  let children = [];
+  let activeMenu: MenuModel = null;
+  let children: MenuModel[] = [];
   // console.log("[TEACHER]", $teacher);
 
   const filterMenuEntries = () => {
@@ -25,24 +27,24 @@
     activeMenu = menu;
     children = filterMenuEntries();
   }
-  const classValue = (item) => {
+  const classValue = (item: MenuModel) => {
     return item.clazz;
   };
-  const toggle = (item) => {
+  const toggle = (item: MenuModel) => {
     if (menu.visible !== "always" && !loaded) {
       return undefined;
     }
     return (item.props && item.props.toggle) || undefined;
   };
-  const target = (item) => {
+  const target = (item: MenuModel) => {
     if (menu.visible !== "always" && !loaded) {
       return undefined;
     }
     return (item.props && item.props.target) || undefined;
   };
-  const cmd = (item) => (item.props && item.props.cmd) || undefined;
+  const cmd = (item: MenuModel) => (item.props && item.props.cmd) || undefined;
 
-  const actionButtonClicked = (e, parentMenu) => {
+  const actionButtonClicked = (e: Event, parentMenu:MenuModel) => {
     if (parentMenu.keepalive) {
       return;
     }
@@ -52,6 +54,9 @@
   };
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <div
   on:click
   on:mouseover
@@ -88,7 +93,7 @@
     {#if menu.children.length > 0}
       <div class="btn-area">
         {#each children as item}
-          {#if item.teacherOnly && !$teacher}{:else}
+          {#if item.teacherOnly && !$teacher}<!--skip-->{:else}
             <button
               class:disabled={menu.visible !== "always" && !loaded}
               on:click={(e) => actionButtonClicked(e, menu)}

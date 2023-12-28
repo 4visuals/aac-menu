@@ -1,4 +1,6 @@
-export const word = [
+import type { MenuModel } from "../menu-type";
+
+export const word: MenuModel[] = [
   {
     id: "menu-file",
     text: "단어장",

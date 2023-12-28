@@ -1,4 +1,6 @@
-export const sentence = [
+import type { MenuModel } from "../menu-type";
+
+export const sentence: MenuModel[] = [
   {
     id: "menu-file",
     text: "바구니",

@@ -1,4 +1,6 @@
-export const board = [
+import type { MenuModel } from "../menu-type";
+
+export const board: MenuModel[] = [
   {
     id: "menu-studyword",
     text: "학 습",

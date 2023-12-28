@@ -1,4 +1,6 @@
-export const reading = [
+import type { MenuModel } from "../menu-type";
+
+export const reading: MenuModel[] = [
   {
     id: "menu-file",
     text: "책",

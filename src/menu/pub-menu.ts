@@ -1,4 +1,6 @@
-export const pub = [
+import type { MenuModel } from "../menu-type";
+
+export const pub: MenuModel[] = [
   {
     id: "menu-file",
     text: "간행물",
