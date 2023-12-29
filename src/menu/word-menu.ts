@@ -1,9 +1,10 @@
-import type { MenuModel } from "../menu-type";
+import { MenuModel } from "../menu-type";
 
-export const word: MenuModel[] = [
+const wordMenu: MenuModel[] = [
   {
     id: "menu-file",
     text: "단어장",
+    level: { value: 1, policy: "hide" },
     icon: {
       clazz: "material-icons",
       text: "dns",
@@ -13,6 +14,7 @@ export const word: MenuModel[] = [
       {
         id: "menu-new-word",
         text: "새 단어장",
+        level: { value: 1, policy: "hide" },
         icon: {
           clazz: "material-icons",
           text: "note_add",
@@ -34,6 +36,7 @@ export const word: MenuModel[] = [
       {
         id: "menu-open-word",
         text: "불러오기",
+        level: { value: 1, policy: "hide" },
         icon: {
           clazz: "material-icons",
           text: "folder_open",
@@ -55,6 +58,7 @@ export const word: MenuModel[] = [
       {
         id: "menu-rename",
         text: "이름 바꾸기",
+        level: { value: 1, policy: "hide" },
         icon: {
           clazz: "material-icons",
           text: "text_rotation_none",
@@ -113,6 +117,7 @@ export const word: MenuModel[] = [
       {
         id: "menu-delete",
         text: "삭제하기",
+        level: { value: 1, policy: "hide" },
         icon: { clazz: "material-icons", text: "delete" },
         desc: "현재 단어장을 삭제합니다.",
         children: [
@@ -187,6 +192,7 @@ export const word: MenuModel[] = [
       {
         id: "menu-list-words",
         text: "어휘 목록",
+        level: { value: 1, policy: "hide" },
         keepalive: true,
         icon: { clazz: "material-icons", text: "subject" },
         desc: "학습할 어휘를 선택합니다.",
@@ -205,6 +211,7 @@ export const word: MenuModel[] = [
       {
         id: "menu-list-cards",
         text: "낱말 카드",
+        level: { value: 1, policy: "hide" },
         icon: {
           clazz: "material-icons",
           text: "grid_view",
@@ -222,6 +229,7 @@ export const word: MenuModel[] = [
       {
         id: "menu-study-word",
         text: "낱말 찾기",
+        level: { value: 1, policy: "hide" },
         icon: {
           clazz: "material-icons",
           text: "font_download",
@@ -243,6 +251,7 @@ export const word: MenuModel[] = [
       {
         id: "menu-study-pic",
         text: "그림 찾기",
+        level: { value: 1, policy: "hide" },
         icon: {
           clazz: "material-icons",
           text: "image_search",
@@ -372,6 +381,7 @@ export const word: MenuModel[] = [
     id: "menu-sizing",
     clazz: "btnSizing",
     text: "크게",
+    level: { value: 1, policy: "hide" },
     visible: "always",
     cmd: "sizing",
     icon: {
@@ -384,6 +394,7 @@ export const word: MenuModel[] = [
     id: "menu-help",
     clazz: "btnHelp",
     text: "help",
+    level: { value: 1, policy: "hide" },
     visible: "always",
     cmd: "help",
     icon: { clazz: "material-icons", text: "help" },
@@ -398,3 +409,4 @@ export const word: MenuModel[] = [
     children: [],
   },
 ];
+export const word = MenuModel.build(wordMenu);

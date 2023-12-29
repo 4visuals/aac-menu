@@ -5,11 +5,12 @@
   import { fade } from "svelte/transition";
   import { createEventDispatcher } from "svelte";
   import type { Writable } from "svelte/store";
-  import type { MenuModel, PageName } from "../menu-type";
+  import { User, type MenuModel, type PageName } from "../menu-type";
   export let teacher:Writable<boolean>;
   export let menu:MenuModel;
   export let loaded: boolean | 'READING' | 'SENTENCE'; // [true, false, 'READING', 'SENTENCE']
   export let searchState: Writable<string>;
+  export let userStore:Writable<User>
 
   let activeEntry:MenuModel = null;
   let activeMenu:MenuModel = null;
@@ -70,7 +71,7 @@
 
     <div class="popup-body">
       {#each entries as child}
-        {#if child.teacherOnly === true && !isTeacher}
+        {#if ($userStore && $userStore.userLevel < child.level.value) || ( child.teacherOnly === true && !isTeacher)}
           <div />
         {:else}
           <MenuEntry

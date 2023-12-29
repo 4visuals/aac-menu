@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Writable } from "svelte/store";
-  import type { MenuModel, PageName } from "../menu-type";
+  import type { MenuModel } from "../menu-type";
 
   export let teacher:Writable<Boolean>;
   export let loaded:boolean | 'READING' | 'SENTENCE';

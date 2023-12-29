@@ -18,11 +18,20 @@ export type MenuProps = {
   backdrop?: "static";
   cmd?: string;
 };
+export type MenuLevel = {
+  value: number;
+  policy: "disable" | "hide";
+};
 export class MenuModel {
   /**
    * [root][branch]
    */
   id?: string;
+  /**
+   * 이용 가능한 userLevel.
+   * 값이 32이면 교사(32), 유료이용자(64)만 이용 가능. 일반 사용자(1)는 이용 불가
+   */
+  level?: MenuLevel = { value: 32, policy: "hide" };
   box?: "box";
   value?: "Ara" | "Ewha" | "Son" | "Soy";
   prop?: { type: "radio"; name: "search-option" };
@@ -61,4 +70,54 @@ export class MenuModel {
 
   props?: MenuProps;
   children?: MenuModel[] = [];
+
+  constructor(dto: MenuModel) {
+    Object.assign(this, dto);
+    if (this.children) {
+      this.children = this.children.map((child) => new MenuModel(child));
+    }
+  }
+
+  static build(menus: MenuModel[]) {
+    return menus.map((dto) => new MenuModel(dto));
+  }
+}
+export type UserRole =
+  | "BOARD"
+  | "WORD"
+  | "SENTENCE"
+  | "READING"
+  | "PUB"
+  | "USERCONFIG"
+  | "ADMIN";
+export class User {
+  seq: number;
+  guest: boolean;
+  joinDate: string;
+  password: string;
+  phoneNumber: string;
+  region: string;
+  roles: UserRole[];
+  school: string;
+  /**
+   * 학생이면 true
+   */
+  student: boolean;
+  /**
+   * 선생님이면 true
+   */
+  teacher: boolean;
+  teacherSeq: number;
+  userEmail: string;
+  userId: string;
+  userLevel: number;
+  userName: string;
+
+  constructor(dto: User) {
+    Object.assign(this, dto);
+  }
+
+  static wrap(dto: User) {
+    return new User(dto);
+  }
 }

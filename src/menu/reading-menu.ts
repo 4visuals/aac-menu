@@ -1,9 +1,10 @@
-import type { MenuModel } from "../menu-type";
+import { MenuModel } from "../menu-type";
 
-export const reading: MenuModel[] = [
+const menus: MenuModel[] = [
   {
     id: "menu-file",
     text: "책",
+    level: { value: 1, policy: "hide" },
     icon: {
       clazz: "material-icons",
       text: "menu_book",
@@ -13,6 +14,7 @@ export const reading: MenuModel[] = [
       {
         id: "menu-new-basket",
         text: "새 책",
+        level: { value: 1, policy: "hide" },
         icon: {
           clazz: "material-icons",
           text: "note_add",
@@ -34,6 +36,7 @@ export const reading: MenuModel[] = [
       {
         id: "menu-open-basket",
         text: "불러오기",
+        level: { value: 1, policy: "hide" },
         icon: {
           clazz: "material-icons",
           text: "folder_open",
@@ -51,6 +54,7 @@ export const reading: MenuModel[] = [
       {
         id: "menu-rename-basket",
         text: "이름 바꾸기",
+        level: { value: 1, policy: "hide" },
         desc: "현재 책의 이름을 변경합니다.",
         icon: {
           clazz: "material-icons",
@@ -109,6 +113,7 @@ export const reading: MenuModel[] = [
       {
         id: "menu-delete-bakset",
         text: "삭제하기",
+        level: { value: 1, policy: "hide" },
         icon: { clazz: "material-icons", text: "delete" },
         desc: "현재 책을 삭제합니다.",
         children: [
@@ -204,11 +209,13 @@ export const reading: MenuModel[] = [
   {
     id: "menu-studyword",
     text: "어 휘",
+    level: { value: 1, policy: "hide" },
     visible: "loaded",
     children: [
       {
         id: "menu-list-words",
         text: "어휘 목록",
+        level: { value: 1, policy: "hide" },
         keepalive: true,
         icon: { clazz: "material-icons", text: "subject" },
         desc: "학습할 어휘를 선택합니다.",
@@ -227,6 +234,7 @@ export const reading: MenuModel[] = [
       {
         id: "menu-list-cards",
         text: "낱말 카드",
+        level: { value: 1, policy: "hide" },
         icon: {
           clazz: "material-icons",
           text: "grid_view",
@@ -244,6 +252,7 @@ export const reading: MenuModel[] = [
       {
         id: "menu-study-word",
         text: "낱말 찾기",
+        level: { value: 1, policy: "hide" },
         icon: {
           clazz: "material-icons",
           text: "font_download",
@@ -265,6 +274,7 @@ export const reading: MenuModel[] = [
       {
         id: "menu-study-pic",
         text: "그림 찾기",
+        level: { value: 1, policy: "hide" },
         icon: {
           clazz: "material-icons",
           text: "image_search",
@@ -393,10 +403,12 @@ export const reading: MenuModel[] = [
   {
     id: "menu-sentence-study",
     text: "문 장",
+    level: { value: 1, policy: "hide" },
     children: [
       {
         id: "menu-list-words",
         text: "문장 목록",
+        level: { value: 1, policy: "hide" },
         keepalive: true,
         icon: { clazz: "material-icons", text: "subject" },
         desc: "공부할 문장을 선택합니다.",
@@ -415,6 +427,7 @@ export const reading: MenuModel[] = [
       {
         id: "menu-sentence-cards",
         text: "문장 카드",
+        level: { value: 1, policy: "hide" },
         icon: {
           clazz: "material-icons",
           text: "grid_view",
@@ -495,6 +508,7 @@ export const reading: MenuModel[] = [
       {
         id: "menu-sentence-ordering",
         text: "문장 순서 맞추기",
+        level: { value: 1, policy: "hide" },
         icon: {
           clazz: "material-icons",
           text: "password",
@@ -696,11 +710,13 @@ export const reading: MenuModel[] = [
   {
     id: "menu-search-config",
     text: "검 색",
+    level: { value: 1, policy: "hide" },
     visible: "always",
     children: [
       {
         id: "menu-search-preference",
         text: "선호 상징",
+        level: { value: 1, policy: "hide" },
         visible: "always",
         box: "box",
         icon: { clazz: "material-icons", text: "sort" },
@@ -728,6 +744,7 @@ export const reading: MenuModel[] = [
       text: "record_voice_over",
     },
     text: "읽기",
+    level: { value: 1, policy: "hide" },
     children: [],
   },
   {
@@ -739,6 +756,7 @@ export const reading: MenuModel[] = [
       text: "create_new_folder",
     },
     text: "사전",
+    level: { value: 1, policy: "hide" },
     children: [],
   },
   {
@@ -747,6 +765,7 @@ export const reading: MenuModel[] = [
     visible: "always",
     icon: { clazz: "material-icons", text: "image" },
     text: "상징",
+    level: { value: 1, policy: "hide" },
     children: [],
   },
   {
@@ -758,6 +777,7 @@ export const reading: MenuModel[] = [
       text: "photo_size_select_large",
     },
     text: "크게",
+    level: { value: 1, policy: "hide" },
     children: [],
   },
   {
@@ -769,6 +789,7 @@ export const reading: MenuModel[] = [
       text: "lock_open",
     },
     text: "해제",
+    level: { value: 1, policy: "hide" },
     children: [],
   },
   {
@@ -803,3 +824,5 @@ export const reading: MenuModel[] = [
     children: [],
   },
 ];
+
+export const reading = MenuModel.build(menus);

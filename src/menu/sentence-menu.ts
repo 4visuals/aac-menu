@@ -1,6 +1,6 @@
-import type { MenuModel } from "../menu-type";
+import { MenuModel } from "../menu-type";
 
-export const sentence: MenuModel[] = [
+const menus: MenuModel[] = [
   {
     id: "menu-file",
     text: "바구니",
@@ -767,3 +767,5 @@ export const sentence: MenuModel[] = [
     children: [],
   },
 ];
+
+export const sentence = MenuModel.build(menus);

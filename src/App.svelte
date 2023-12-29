@@ -3,7 +3,7 @@
 <script lang="ts">
   import type { Writable } from "svelte/store";
   import PopupMenu from "./menu/popup-menu.svelte";
-  import type { MenuList, MenuModel, PageName } from "./menu-type";
+  import type { MenuList, MenuModel, PageName, User } from "./menu-type";
   import { word } from "./menu/word-menu";
   import { sentence } from "./menu/sentence-menu";
   import { reading } from "./menu/reading-menu";
@@ -15,6 +15,7 @@
   export let chatState:Writable<boolean>;
   export let page:PageName;
   export let searchState:Writable<string>;
+  export let userStore:Writable<User>;
 
   
 
@@ -67,7 +68,7 @@
   const filterMenu = (fn: (menu:MenuModel) =>boolean) => menus.filter(fn);
 
   const filterMenuWhenPub = () => {
-    const filtered = filterMenu((m) => !!m.cmd);
+    const filtered = filterMenu((m) => !!m.cmd && $userStore && $userStore.userLevel >= m.level.value);
     if ((page === "pub" || page === "reading") && loaded !== "SENTENCE") {
       const idx = filtered.findIndex((m) => m.id === "menu-print-sentence");
       filtered.splice(idx, 1);
@@ -132,6 +133,7 @@
     on:active-menu={(e) => openMenuPopup(e.detail.menu)}
     teacher={teacherState}
     {loaded}
+    {userStore}
     {searchState}
     menu={activeMenu}
   />
