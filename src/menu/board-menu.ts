@@ -191,6 +191,18 @@ const menus: MenuModel[] = [
     ],
   },
   {
+    id: "qr-maker",
+    cmd: "share",
+    visible: "always",
+    icon: {
+      clazz: "material-icons",
+      text: "qr_code",
+    },
+    text: "QR생성",
+    props: { toggle: "modal", target: "#shared-modal" },
+    children: [],
+  },
+  {
     id: "menu-play-box",
     cmd: "play",
     visible: "always",

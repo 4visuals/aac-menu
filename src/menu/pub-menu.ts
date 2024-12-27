@@ -266,7 +266,7 @@ const menus: MenuModel[] = [
         text: "문장 목록",
         keepalive: true,
         icon: { clazz: "material-icons", text: "subject" },
-        desc: "공부할 문장을 선택합니다.",
+        desc: "학습할 문장을 선택합니다.",
         children: [
           {
             id: "idSentenceList",
@@ -297,7 +297,7 @@ const menus: MenuModel[] = [
           {
             id: "sentenceExercise",
             cmd: "sentenceExercise",
-            text: "&nbsp;&nbsp;쓰&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기&nbsp;&nbsp;",
+            text: "쓰&nbsp;&nbsp;기&nbsp;&nbsp;연&nbsp;&nbsp;습",
             props: {
               toggle: "modal",
               target: "#sentenceCardModal",

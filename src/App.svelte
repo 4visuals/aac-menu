@@ -41,7 +41,7 @@
     board[1],
     board[2],
     board[3]
-    //board[4]
+    // board[4]
   ]
   let menuList:MenuList = { word, sentence, reading, pub, board, share };
 
@@ -67,6 +67,7 @@
   };
   const filterMenu = (fn: (menu:MenuModel) =>boolean) => menus.filter(fn);
 
+  let models: MenuModel[] = []
   const filterMenuWhenPub = () => {
     const filtered = filterMenu((m) => !!m.cmd && $userStore && $userStore.userLevel >= m.level.value);
     if ((page === "pub" || page === "reading") && loaded !== "SENTENCE") {
@@ -75,6 +76,11 @@
     }
     return filtered;
   };
+  userStore.subscribe(user => {
+    if(user) {
+      models = filterMenuWhenPub()
+    }
+  })
 </script>
 
 <div id="menu-wrapper">
@@ -104,7 +110,7 @@
         ><span class="material-icons">more_vert</span></a
       >
       <div class="cmd-bar-body">
-        {#each filterMenuWhenPub() as menu (menu.id)}
+        {#each models as menu (menu.id)}
           <a
             class="tool-item {menu.clazz || undefined} {menu.id ===
               'menu-chat-mode' && chatting
